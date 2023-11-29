@@ -1,14 +1,18 @@
-public class Livro implements Catalogavel{
-  private String titulo;
-  private int numeroDePaginas;
-  private int ISBN;
-  private String Autor;
+import biblioteca.MaterialBibliografico;
 
-  public Livro(String titulo, int numeroDePaginas, int iSBN, String autor) {
-    this.titulo = titulo;
-    this.numeroDePaginas = numeroDePaginas;
-    ISBN = iSBN;
-    Autor = autor;
+import java.util.ArrayList;
+
+public class Livro extends MaterialBibliografico {
+  public Livro(String titulo, int numeroDePaginas, int ISBN, String autor) {
+    super(titulo, numeroDePaginas, ISBN, autor);
   }
-
+  @Override
+  public String toString() {
+    return "Livro" +
+            ", " + titulo +
+            ", " + numeroDePaginas +
+            ", " + ISBN +
+            ", " + autor +
+            ", " + emprestado;
+  }
 }
