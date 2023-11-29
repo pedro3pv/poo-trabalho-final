@@ -28,13 +28,19 @@ public class Biblioteca {
         if (s != "") {
           List tempLoad = Arrays.asList(s.split("-"));
           ArrayList<String> tempArraylist = new ArrayList(tempLoad);
-          ArrayList tempArray = new ArrayList();
           for(int i = 0;i<tempArraylist.size();i++){
             String stemp = tempArraylist.get(i);
             List temps = Arrays.asList(stemp.split(", "));
-            tempArray.add(temps);
+            System.out.println(temps.get(0));
+            if (temps.get(0).equals("Livro")){
+              Livro livro = new Livro(temps.get(1).toString(), Integer.parseInt(temps.get(2).toString()), Integer.parseInt(temps.get(3).toString()), temps.get(4).toString());
+              listaDeMaterialBibliografico.add(livro);
+            }
+            if (temps.get(0).equals("Revista")){
+              Revista revista = new Revista(temps.get(1).toString(), Integer.parseInt(temps.get(2).toString()), Integer.parseInt(temps.get(3).toString()), temps.get(4).toString());
+              listaDeMaterialBibliografico.add(revista);
+            }
           }
-          listaDeMaterialBibliografico = new ArrayList(tempArray);
           System.out.println(listaDeMaterialBibliografico);
         }
       }
