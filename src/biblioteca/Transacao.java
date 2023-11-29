@@ -4,12 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Transacao {
-    private int ID;
-    private Pessoa pessoa;
-    private MaterialBibliografico livro;
-    private String data;
-    private String hora;
-    public Transacao(int ID,Pessoa pessoa, MaterialBibliografico livro) {
+    protected int ID;
+    protected Pessoa pessoa;
+    protected MaterialBibliografico livro;
+    protected String data;
+    public Transacao(Pessoa pessoa, MaterialBibliografico livro) {
         LocalDateTime hour = LocalDateTime.now();
         DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = hour.format(formatHour);
@@ -17,5 +16,4 @@ public abstract class Transacao {
         this.livro = livro;
         this.data = formattedDate;
     }
-
 }

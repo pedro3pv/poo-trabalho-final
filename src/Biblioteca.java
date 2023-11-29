@@ -49,14 +49,20 @@ public class Biblioteca {
         if (s != "") {
           List tempLoad = Arrays.asList(s.split("-"));
           ArrayList<String> tempArraylist = new ArrayList(tempLoad);
-          ArrayList tempArray = new ArrayList();
           for(int i = 0;i<tempArraylist.size();i++){
             String stemp = tempArraylist.get(i);
             List temps = Arrays.asList(stemp.split(", "));
-            tempArray.add(temps);
+            System.out.println(temps.get(0));
+            if (temps.get(0).equals("Emprestimo")){
+              Emprestimo emprestimo = new Emprestimo((Pessoa) temps.get(0), (MaterialBibliografico) temps.get(1));
+              listaDeTransacoes.add(emprestimo);
+            }
+            if (temps.get(0).equals("Devolucao")){
+              Devolucao devolucao = new Devolucao((Pessoa) temps.get(0), (MaterialBibliografico) temps.get(1));
+              listaDeTransacoes.add(devolucao);
+            }
           }
-          listaDeTransacoes = new ArrayList(tempArray);
-          //System.out.println(listaDeTransacoes);
+          System.out.println(listaDeTransacoes);
         }
       }
     } catch (IOException e) {
@@ -64,19 +70,54 @@ public class Biblioteca {
     }
   }
 
-  private void adicionarMaterialBibliografico(MaterialBibliografico materialBibliografico){
+  private void atualizarArquivoDoMaterialBibliografico(){
     try {
-      listaDeMaterialBibliografico.add(materialBibliografico);
-      if (Files.readString(pathMaterialBibliografico) != "") {
-        String listaTemp = Files.readString(pathMaterialBibliografico) + "-" + String.valueOf(materialBibliografico);
-        Files.writeString(pathMaterialBibliografico,listaTemp);
-      }else {
-        Files.writeString(pathMaterialBibliografico, String.valueOf(materialBibliografico));
+      String listaTemp = "";
+      for (int i = 0;i < listaDeMaterialBibliografico.size();i++){
+        if (listaTemp != "") {
+          listaTemp = listaTemp + "-" + String.valueOf(listaDeMaterialBibliografico.get(i));
+        }else {
+          listaTemp = String.valueOf(listaDeMaterialBibliografico.get(i));
+        }
       }
+      Files.writeString(pathMaterialBibliografico,listaTemp);
       System.out.println("arquivo alterado com sucesso");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private void atualizarArquivoDasTransacoes(){
+    try {
+      String listaTemp = "";
+      for (int i = 0;i < listaDeTransacoes.size();i++){
+        if (listaTemp != "") {
+          listaTemp = listaTemp + "-" + String.valueOf(listaDeTransacoes.get(i));
+        }else {
+          listaTemp = String.valueOf(listaDeTransacoes.get(i));
+        }
+      }
+      Files.writeString(pathTransacoes,listaTemp);
+      System.out.println("arquivo alterado com sucesso");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void adicionarMaterialBibliografico(MaterialBibliografico materialBibliografico){
+    boolean contains = false;
+    for (int i = 0;i < listaDeMaterialBibliografico.size();i++){
+      MaterialBibliografico obj = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
+      if (String.valueOf(materialBibliografico).equals(String.valueOf(obj))){
+        contains = true;
+      }
+    }
+    if (!contains){
+      listaDeMaterialBibliografico.add(materialBibliografico);
+    } else {
+      System.out.println("livro já está na lista");
+    }
+    atualizarArquivoDoMaterialBibliografico();
   }
 
   public void adicionarLivro(String titulo, int numeroDePaginas, int iSBN, String autor){
@@ -86,7 +127,7 @@ public class Biblioteca {
 
   public void adicionarRevista(String titulo, int numeroDePaginas, int iSBN, String autor){
     Revista revista = new Revista(titulo,numeroDePaginas,iSBN,autor);
-    listaDeMaterialBibliografico.add(revista);
+    adicionarMaterialBibliografico(revista);
   }
 
   public void removerMaterialBibliografico(int iSBN){
@@ -96,13 +137,14 @@ public class Biblioteca {
         listaDeMaterialBibliografico.remove(materialBibliografico);
       }
     }
+    atualizarArquivoDoMaterialBibliografico();
   }
-  public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico){
+  /*public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico){
     Emprestimo emprestimo = new Emprestimo(listaDeTransacoes.size(),pessoa,materialBibliografico);
     listaDeTransacoes.add(emprestimo);
   }
   public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico){
     Devolucao devolucao = new Devolucao(listaDeTransacoes.size(),pessoa,materialBibliografico);
     listaDeTransacoes.add(devolucao);
-  }
+  }*/
 }
