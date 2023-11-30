@@ -1,0 +1,6 @@
+exceções:
+livro da casa do usuario
+livro não existe
+livro não pode ter o mesmo ISBN
+não emprestar duas vezes
+não o mesmo livro duas vezes

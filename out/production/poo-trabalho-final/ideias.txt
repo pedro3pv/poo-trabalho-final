@@ -1,0 +1,4 @@
+exceções:
+livro da casa do usuario
+livro não existe
+livro não pode ter o mesmo ISBN

@@ -25,6 +25,10 @@ public abstract class MaterialBibliografico implements Catalogavel {
     public int getISBN() {
         return ISBN;
     }
+
+    public boolean status(){
+        return emprestado;
+    }
     @Override
     public String toString() {
         return "MaterialBibliografico" +

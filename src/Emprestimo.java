@@ -3,6 +3,7 @@ import biblioteca.Pessoa;
 import biblioteca.Transacao;
 
 public class Emprestimo extends Transacao {
+    private String dataDeDevolucao;
     public Emprestimo(Pessoa pessoa, MaterialBibliografico livro) {
         super(pessoa, livro);
         livro.realizarEmprestimo();
@@ -10,9 +11,11 @@ public class Emprestimo extends Transacao {
 
     @Override
     public String toString() {
-        return ID +
+        return "Emprestimo" +
+                ", "+ ID +
                 ", " + pessoa +
                 ", " + livro +
-                ", " + data ;
+                ", " + data +
+                ", " + dataDeDevolucao;
     }
 }

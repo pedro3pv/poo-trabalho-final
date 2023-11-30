@@ -12,6 +12,7 @@ import java.util.List;
 public class Biblioteca {
   private ArrayList listaDeMaterialBibliografico = new ArrayList<MaterialBibliografico>();
   private ArrayList listaDeTransacoes = new ArrayList<Transacao>();
+  private ArrayList listaDePessoas = new ArrayList<Pessoa>();
   private Path pathMaterialBibliografico = Path.of("./MaterialBibliografico.txt");
   Path pathTransacoes = Path.of("./Transacoes.txt");
 
@@ -58,7 +59,7 @@ public class Biblioteca {
               listaDeTransacoes.add(emprestimo);
             }
             if (temps.get(0).equals("Devolucao")){
-              Devolucao devolucao = new Devolucao((Pessoa) temps.get(0), (MaterialBibliografico) temps.get(1));
+              Devolucao devolucao = new Devolucao((Emprestimo) temps.get(0), (Pessoa) temps.get(1),(MaterialBibliografico) temps.get(2));
               listaDeTransacoes.add(devolucao);
             }
           }
@@ -130,6 +131,16 @@ public class Biblioteca {
     adicionarMaterialBibliografico(revista);
   }
 
+  public MaterialBibliografico getMaterialBibliografico(int iSBN){
+    for (int i = 0; i < listaDeMaterialBibliografico.size();i++){
+      MaterialBibliografico materialBibliografico = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
+      if (iSBN == materialBibliografico.getISBN()){
+        return materialBibliografico;
+      }
+    }
+    return null;
+  }
+
   public void removerMaterialBibliografico(int iSBN){
     for (int i = 0; i < listaDeMaterialBibliografico.size();i++){
       MaterialBibliografico materialBibliografico = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
@@ -139,12 +150,14 @@ public class Biblioteca {
     }
     atualizarArquivoDoMaterialBibliografico();
   }
-  /*public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico){
-    Emprestimo emprestimo = new Emprestimo(listaDeTransacoes.size(),pessoa,materialBibliografico);
+  public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico){
+    Emprestimo emprestimo = new Emprestimo(pessoa,materialBibliografico);
     listaDeTransacoes.add(emprestimo);
+    atualizarArquivoDasTransacoes();
   }
   public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico){
-    Devolucao devolucao = new Devolucao(listaDeTransacoes.size(),pessoa,materialBibliografico);
+    Emprestimo emprestimo = null;
+    Devolucao devolucao = new Devolucao(emprestimo,pessoa,materialBibliografico);
     listaDeTransacoes.add(devolucao);
-  }*/
+  }
 }

@@ -2,7 +2,7 @@ package biblioteca;
 
 import java.util.ArrayList;
 
-public abstract class Pessoa {
+public abstract class Pessoa implements Cadastravel {
   protected String nome;
   protected int idade;
   protected String CPF;
