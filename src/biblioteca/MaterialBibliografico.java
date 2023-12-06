@@ -1,5 +1,7 @@
 package biblioteca;
 
+import Excecoes.TituloInvalidoException;
+
 public abstract class MaterialBibliografico implements Catalogavel {
     protected String titulo;
     protected int numeroDePaginas;
@@ -7,7 +9,10 @@ public abstract class MaterialBibliografico implements Catalogavel {
     protected String autor;
     protected boolean emprestado;
 
-    public MaterialBibliografico(String titulo, int numeroDePaginas, int ISBN, String autor) {
+    public MaterialBibliografico(String titulo, int numeroDePaginas, int ISBN, String autor) throws TituloInvalidoException {
+        if (titulo == null || titulo.isEmpty()) {
+            throw new TituloInvalidoException("Título inválido. O título não pode ser nulo ou vazio.");
+        }
         this.titulo = titulo;
         this.numeroDePaginas = numeroDePaginas;
         this.ISBN = ISBN;

@@ -1,5 +1,0 @@
-public class LivroNaoPodeSerDevolvidoException extends Exception {
-    public LivroNaoPodeSerDevolvidoException(String mensagem) {
-        super(mensagem);
-    }
-}

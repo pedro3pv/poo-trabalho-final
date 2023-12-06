@@ -1,8 +1,8 @@
+import Excecoes.*;
 import biblioteca.MaterialBibliografico;
 import biblioteca.Pessoa;
 import biblioteca.Transacao;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Biblioteca {
@@ -13,7 +13,7 @@ public class Biblioteca {
   public Biblioteca() {
     listaDeMaterialBibliografico = Persistencia.carregarMaterialBibliografico("./MaterialBibliografico.dat");
     listaDeTransacoes = Persistencia.carregarTransacoes("./Transacoes.dat");
-    listaDePessoas = Persistencia.carregarPessoas("./Pessoas.dat");
+    //listaDePessoas = Persistencia.carregarPessoas("./Pessoas.dat");
   }
 
   private void atualizarArquivoDoMaterialBibliografico(){
@@ -27,12 +27,13 @@ public class Biblioteca {
     Persistencia.salvarPessoas(listaDePessoas,"./Pessoas.dat");
   }
 
-  private void adicionarMaterialBibliografico(MaterialBibliografico materialBibliografico){
+  private void adicionarMaterialBibliografico(MaterialBibliografico materialBibliografico) throws livroExistenteException {
     boolean contains = false;
     for (int i = 0;i < listaDeMaterialBibliografico.size();i++){
       MaterialBibliografico obj = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
       if (String.valueOf(materialBibliografico).equals(String.valueOf(obj))){
         contains = true;
+        throw new livroExistenteException("livro já existe");
       }
     }
     if (!contains){
@@ -43,12 +44,12 @@ public class Biblioteca {
     atualizarArquivoDoMaterialBibliografico();
   }
 
-  public void adicionarLivro(String titulo, int numeroDePaginas, int iSBN, String autor){
+  public void adicionarLivro(String titulo, int numeroDePaginas, int iSBN, String autor) throws livroExistenteException, TituloInvalidoException {
     Livro livro = new Livro(titulo,numeroDePaginas,iSBN,autor);
     adicionarMaterialBibliografico(livro);
   }
 
-  public void adicionarRevista(String titulo, int numeroDePaginas, int iSBN, String autor){
+  public void adicionarRevista(String titulo, int numeroDePaginas, int iSBN, String autor) throws livroExistenteException, TituloInvalidoException {
     Revista revista = new Revista(titulo,numeroDePaginas,iSBN,autor);
     adicionarMaterialBibliografico(revista);
   }
@@ -63,22 +64,30 @@ public class Biblioteca {
     return null;
   }
 
-  public void removerMaterialBibliografico(int iSBN){
+  public void removerMaterialBibliografico(int iSBN) throws LivroNaoExisteException {
+    boolean contains = false;
     for (int i = 0; i < listaDeMaterialBibliografico.size();i++){
       MaterialBibliografico materialBibliografico = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
       if (iSBN == materialBibliografico.getISBN()){
         listaDeMaterialBibliografico.remove(materialBibliografico);
       }
     }
+    if (!contains){
+      throw new LivroNaoExisteException("livro não existe");
+    }
     atualizarArquivoDoMaterialBibliografico();
   }
-  public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico){
-    Emprestimo emprestimo = new Emprestimo(pessoa,materialBibliografico);
-    listaDeTransacoes.add(emprestimo);
-    atualizarArquivoDasTransacoes();
+  public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroJaEmprestadoException, TransacaoInvalidaException {
+    if (!materialBibliografico.status()){
+      Emprestimo emprestimo = new Emprestimo(pessoa, materialBibliografico);
+      listaDeTransacoes.add(emprestimo);
+      atualizarArquivoDasTransacoes();
+    }else {
+      throw new LivroJaEmprestadoException("livro já emprestado");
+    }
   }
-  public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico){
-    int idEmprestimo = 0;
+  public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroNaoEncontradoException, TransacaoInvalidaException {
+    int idEmprestimo = -1;
     for (int i = 0; i < listaDeTransacoes.size();i++){
       Transacao transacao = (Transacao) listaDeTransacoes.get(i);
       if (transacao instanceof Emprestimo){
@@ -88,6 +97,9 @@ public class Biblioteca {
           idEmprestimo = i;
         }
       }
+    }
+    if (idEmprestimo == -1){
+      throw new LivroNaoEncontradoException("livro não encontrado");
     }
     Transacao transacao = (Transacao) listaDeTransacoes.get(idEmprestimo);
     Devolucao devolucao = new Devolucao((Emprestimo) transacao,pessoa,materialBibliografico);

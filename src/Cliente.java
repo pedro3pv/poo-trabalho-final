@@ -1,9 +1,10 @@
+import Excecoes.IdadeInvalidaException;
 import biblioteca.Pessoa;
 
 import java.util.ArrayList;
 
 public class Cliente extends Pessoa {
-    public Cliente(String nome, int idade, String CPF) {
+    public Cliente(String nome, int idade, String CPF) throws IdadeInvalidaException {
         super(nome, idade, CPF);
     }
 

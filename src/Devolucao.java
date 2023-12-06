@@ -1,3 +1,4 @@
+import Excecoes.TransacaoInvalidaException;
 import biblioteca.MaterialBibliografico;
 import biblioteca.Pessoa;
 import biblioteca.Transacao;
@@ -6,7 +7,7 @@ import java.io.Serializable;
 
 public class Devolucao extends Transacao implements Serializable {
     private Emprestimo emprestimo;
-    public Devolucao(Emprestimo emprestimo, Pessoa pessoa, MaterialBibliografico livro) {
+    public Devolucao(Emprestimo emprestimo, Pessoa pessoa, MaterialBibliografico livro) throws TransacaoInvalidaException {
         super(pessoa, livro);
         this.emprestimo = emprestimo;
         livro.realizarDevolucao();
