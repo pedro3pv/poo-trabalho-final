@@ -1,1 +1,0 @@
-Emprestimo, 0, Cliente, cleber, 180, 5656793256753, Livro, test2, 14, 3516, test2, true, 30-11-2023 11:03:28, null

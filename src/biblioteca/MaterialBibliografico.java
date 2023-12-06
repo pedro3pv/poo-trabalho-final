@@ -6,12 +6,15 @@ public abstract class MaterialBibliografico implements Catalogavel {
     protected int ISBN;
     protected String autor;
     protected boolean emprestado;
+
     public MaterialBibliografico(String titulo, int numeroDePaginas, int ISBN, String autor) {
         this.titulo = titulo;
         this.numeroDePaginas = numeroDePaginas;
         this.ISBN = ISBN;
         this.autor = autor;
     }
+    protected MaterialBibliografico(){}
+
     @Override
     public void realizarEmprestimo() {
         emprestado = true;

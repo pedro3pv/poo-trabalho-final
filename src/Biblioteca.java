@@ -2,107 +2,29 @@ import biblioteca.MaterialBibliografico;
 import biblioteca.Pessoa;
 import biblioteca.Transacao;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Biblioteca {
-  private ArrayList listaDeMaterialBibliografico = new ArrayList<MaterialBibliografico>();
-  private ArrayList listaDeTransacoes = new ArrayList<Transacao>();
-  private ArrayList listaDePessoas = new ArrayList<Pessoa>();
-  private Path pathMaterialBibliografico = Path.of("./MaterialBibliografico.txt");
-  Path pathTransacoes = Path.of("./Transacoes.txt");
+  private ArrayList listaDeMaterialBibliografico;
+  private ArrayList listaDeTransacoes;
+  private ArrayList listaDePessoas;
 
   public Biblioteca() {
-    try {
-      if (Files.notExists(pathMaterialBibliografico)) {
-        Files.createFile(pathMaterialBibliografico);
-      }
-      if (Files.notExists(pathTransacoes)) {
-        Files.createFile(pathTransacoes);
-      }
-      if (Files.exists(pathMaterialBibliografico)) {
-        String s = Files.readString(pathMaterialBibliografico);
-        if (s != "") {
-          List tempLoad = Arrays.asList(s.split("-"));
-          ArrayList<String> tempArraylist = new ArrayList(tempLoad);
-          for(int i = 0;i<tempArraylist.size();i++){
-            String stemp = tempArraylist.get(i);
-            List temps = Arrays.asList(stemp.split(", "));
-            System.out.println(temps.get(0));
-            if (temps.get(0).equals("Livro")){
-              Livro livro = new Livro(temps.get(1).toString(), Integer.parseInt(temps.get(2).toString()), Integer.parseInt(temps.get(3).toString()), temps.get(4).toString());
-              listaDeMaterialBibliografico.add(livro);
-            }
-            if (temps.get(0).equals("Revista")){
-              Revista revista = new Revista(temps.get(1).toString(), Integer.parseInt(temps.get(2).toString()), Integer.parseInt(temps.get(3).toString()), temps.get(4).toString());
-              listaDeMaterialBibliografico.add(revista);
-            }
-          }
-          System.out.println(listaDeMaterialBibliografico);
-        }
-      }
-      if (Files.exists(pathTransacoes)) {
-        String s = Files.readString(pathTransacoes);
-        if (s != "") {
-          List tempLoad = Arrays.asList(s.split("-"));
-          ArrayList<String> tempArraylist = new ArrayList(tempLoad);
-          for(int i = 0;i<tempArraylist.size();i++){
-            String stemp = tempArraylist.get(i);
-            List temps = Arrays.asList(stemp.split(", "));
-            System.out.println(temps.get(0));
-            if (temps.get(0).equals("Emprestimo")){
-              Emprestimo emprestimo = new Emprestimo((Pessoa) temps.get(0), (MaterialBibliografico) temps.get(1));
-              listaDeTransacoes.add(emprestimo);
-            }
-            if (temps.get(0).equals("Devolucao")){
-              Devolucao devolucao = new Devolucao((Emprestimo) temps.get(0), (Pessoa) temps.get(1),(MaterialBibliografico) temps.get(2));
-              listaDeTransacoes.add(devolucao);
-            }
-          }
-          System.out.println(listaDeTransacoes);
-        }
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    listaDeMaterialBibliografico = Persistencia.carregarMaterialBibliografico("./MaterialBibliografico.dat");
+    listaDeTransacoes = Persistencia.carregarTransacoes("./Transacoes.dat");
+    listaDePessoas = Persistencia.carregarPessoas("./Pessoas.dat");
   }
 
   private void atualizarArquivoDoMaterialBibliografico(){
-    try {
-      String listaTemp = "";
-      for (int i = 0;i < listaDeMaterialBibliografico.size();i++){
-        if (listaTemp != "") {
-          listaTemp = listaTemp + "-" + String.valueOf(listaDeMaterialBibliografico.get(i));
-        }else {
-          listaTemp = String.valueOf(listaDeMaterialBibliografico.get(i));
-        }
-      }
-      Files.writeString(pathMaterialBibliografico,listaTemp);
-      System.out.println("arquivo alterado com sucesso");
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    Persistencia.salvarMaterialBibliografico(listaDeMaterialBibliografico,"./MaterialBibliografico.dat");
   }
 
   private void atualizarArquivoDasTransacoes(){
-    try {
-      String listaTemp = "";
-      for (int i = 0;i < listaDeTransacoes.size();i++){
-        if (listaTemp != "") {
-          listaTemp = listaTemp + "-" + String.valueOf(listaDeTransacoes.get(i));
-        }else {
-          listaTemp = String.valueOf(listaDeTransacoes.get(i));
-        }
-      }
-      Files.writeString(pathTransacoes,listaTemp);
-      System.out.println("arquivo alterado com sucesso");
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    Persistencia.salvarTransacoes(listaDeTransacoes,"./Transacoes.dat");
+  }
+  private void atualizarArquivoDasPessoas(){
+    Persistencia.salvarPessoas(listaDePessoas,"./Pessoas.dat");
   }
 
   private void adicionarMaterialBibliografico(MaterialBibliografico materialBibliografico){
@@ -156,8 +78,19 @@ public class Biblioteca {
     atualizarArquivoDasTransacoes();
   }
   public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico){
-    Emprestimo emprestimo = null;
-    Devolucao devolucao = new Devolucao(emprestimo,pessoa,materialBibliografico);
+    int idEmprestimo = 0;
+    for (int i = 0; i < listaDeTransacoes.size();i++){
+      Transacao transacao = (Transacao) listaDeTransacoes.get(i);
+      if (transacao instanceof Emprestimo){
+        Pessoa pessoaDaLista = transacao.getPessoa();
+        MaterialBibliografico materialBibliograficoDaLista = transacao.getMaterialBibliografico();
+        if (pessoaDaLista == pessoa && materialBibliograficoDaLista == materialBibliografico){
+          idEmprestimo = i;
+        }
+      }
+    }
+    Transacao transacao = (Transacao) listaDeTransacoes.get(idEmprestimo);
+    Devolucao devolucao = new Devolucao((Emprestimo) transacao,pessoa,materialBibliografico);
     listaDeTransacoes.add(devolucao);
   }
 }

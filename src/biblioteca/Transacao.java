@@ -16,4 +16,13 @@ public abstract class Transacao {
         this.livro = livro;
         this.data = formattedDate;
     }
+    protected Transacao(){}
+
+    public MaterialBibliografico getMaterialBibliografico() {
+        return livro;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
 }
