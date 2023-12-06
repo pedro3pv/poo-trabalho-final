@@ -108,4 +108,8 @@ public class Persistencia {
         }
         return lista;
     }
+    @Override
+    public String toString() {
+        return "Persistencia";
+    }
 }

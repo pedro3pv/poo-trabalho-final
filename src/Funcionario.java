@@ -6,13 +6,6 @@ public class Funcionario extends Pessoa {
     public Funcionario(String nome, int idade, String CPF) {
         super(nome, idade, CPF);
     }
-    @Override
-    public String toString() {
-        return "Funcionario" +
-                ", "+nome +
-                ", " + idade +
-                ", " + CPF ;
-    }
 
     @Override
     public ArrayList dados(){
@@ -21,5 +14,15 @@ public class Funcionario extends Pessoa {
         dados.add(idade);
         dados.add(CPF);
         return dados;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "nome='" + nome + '\'' +
+                ", idade=" + idade +
+                ", CPF='" + CPF + '\'' +
+                ", listaDeLivrosEmprestado=" + listaDeLivrosEmprestado +
+                '}';
     }
 }

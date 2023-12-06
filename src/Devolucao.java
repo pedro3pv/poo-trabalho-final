@@ -12,13 +12,15 @@ public class Devolucao extends Transacao implements Serializable {
         livro.realizarDevolucao();
     }
     private Devolucao(){}
+
     @Override
     public String toString() {
-        return "Devolucao" +
-                ", "+ ID +
-                ", " + pessoa +
-                ", " + livro +
-                ", " + data +
-                ", " + emprestimo;
+        return "Devolucao{" +
+                "emprestimo=" + emprestimo +
+                ", ID=" + ID +
+                ", pessoa=" + pessoa +
+                ", livro=" + livro +
+                ", data='" + data + '\'' +
+                '}';
     }
 }

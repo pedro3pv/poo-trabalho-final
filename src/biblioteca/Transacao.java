@@ -25,4 +25,14 @@ public abstract class Transacao {
     public Pessoa getPessoa() {
         return pessoa;
     }
+
+    @Override
+    public String toString() {
+        return "Transacao{" +
+                "ID=" + ID +
+                ", pessoa=" + pessoa +
+                ", livro=" + livro +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }

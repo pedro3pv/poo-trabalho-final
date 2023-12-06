@@ -6,13 +6,6 @@ public class Cliente extends Pessoa {
     public Cliente(String nome, int idade, String CPF) {
         super(nome, idade, CPF);
     }
-    @Override
-    public String toString() {
-        return "Cliente" +
-                ", "+nome +
-                ", " + idade +
-                ", " + CPF ;
-    }
 
     @Override
     public ArrayList dados(){
@@ -21,5 +14,15 @@ public class Cliente extends Pessoa {
         dados.add(idade);
         dados.add(CPF);
         return dados;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", idade=" + idade +
+                ", CPF='" + CPF + '\'' +
+                ", listaDeLivrosEmprestado=" + listaDeLivrosEmprestado +
+                '}';
     }
 }

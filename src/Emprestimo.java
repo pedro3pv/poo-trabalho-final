@@ -11,13 +11,15 @@ public class Emprestimo extends Transacao implements Serializable {
         livro.realizarEmprestimo();
     }
     private Emprestimo(){}
+
     @Override
     public String toString() {
-        return "Emprestimo" +
-                ", "+ ID +
-                ", " + pessoa +
-                ", " + livro +
-                ", " + data +
-                ", " + dataDeDevolucao;
+        return "Emprestimo{" +
+                "dataDeDevolucao='" + dataDeDevolucao + '\'' +
+                ", ID=" + ID +
+                ", pessoa=" + pessoa +
+                ", livro=" + livro +
+                ", data='" + data + '\'' +
+                '}';
     }
 }

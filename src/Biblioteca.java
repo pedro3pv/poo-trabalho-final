@@ -93,4 +93,13 @@ public class Biblioteca {
     Devolucao devolucao = new Devolucao((Emprestimo) transacao,pessoa,materialBibliografico);
     listaDeTransacoes.add(devolucao);
   }
+
+  @Override
+  public String toString() {
+    return "Biblioteca{" +
+            "listaDeMaterialBibliografico=" + listaDeMaterialBibliografico +
+            ", listaDeTransacoes=" + listaDeTransacoes +
+            ", listaDePessoas=" + listaDePessoas +
+            '}';
+  }
 }
