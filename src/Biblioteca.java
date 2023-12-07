@@ -13,7 +13,7 @@ public class Biblioteca {
   public Biblioteca() {
     listaDeMaterialBibliografico = Persistencia.carregarMaterialBibliografico("./MaterialBibliografico.dat");
     listaDeTransacoes = Persistencia.carregarTransacoes("./Transacoes.dat");
-    //listaDePessoas = Persistencia.carregarPessoas("./Pessoas.dat");
+    listaDePessoas = Persistencia.carregarPessoas("./Pessoas.dat");
   }
 
   private void atualizarArquivoDoMaterialBibliografico(){
@@ -38,6 +38,8 @@ public class Biblioteca {
     }
     if (!contains){
       listaDeMaterialBibliografico.add(materialBibliografico);
+      System.out.println(materialBibliografico);
+      System.out.println("livro adicionado");
     } else {
       System.out.println("livro já está na lista");
     }
@@ -78,32 +80,53 @@ public class Biblioteca {
     atualizarArquivoDoMaterialBibliografico();
   }
   public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroJaEmprestadoException, TransacaoInvalidaException {
-    if (!materialBibliografico.status()){
-      Emprestimo emprestimo = new Emprestimo(pessoa, materialBibliografico);
-      listaDeTransacoes.add(emprestimo);
-      atualizarArquivoDasTransacoes();
-    }else {
-      throw new LivroJaEmprestadoException("livro já emprestado");
+    try {
+      boolean encontrado = false;
+      for (int i = 0; i < listaDePessoas.size(); i++) {
+        if (pessoa.getListaDeLivrosEmprestado().get(i) == materialBibliografico) {
+          encontrado = true;
+        }
+      }
+      if (!materialBibliografico.status() && !encontrado) {
+        Emprestimo emprestimo = new Emprestimo(pessoa, materialBibliografico);
+        pessoa.adicionarLivroEmprestado(materialBibliografico);
+        listaDeTransacoes.add(emprestimo);
+        atualizarArquivoDasTransacoes();
+        atualizarArquivoDasPessoas();
+        System.out.println(listaDeTransacoes);
+      } else {
+        throw new LivroJaEmprestadoException("livro já emprestado");
+      }
+    } catch (Exception e){
+      System.out.println(e.getMessage());
     }
   }
   public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroNaoEncontradoException, TransacaoInvalidaException {
-    int idEmprestimo = -1;
-    for (int i = 0; i < listaDeTransacoes.size();i++){
-      Transacao transacao = (Transacao) listaDeTransacoes.get(i);
-      if (transacao instanceof Emprestimo){
-        Pessoa pessoaDaLista = transacao.getPessoa();
-        MaterialBibliografico materialBibliograficoDaLista = transacao.getMaterialBibliografico();
-        if (pessoaDaLista == pessoa && materialBibliograficoDaLista == materialBibliografico){
-          idEmprestimo = i;
+    try {
+      int idEmprestimo = -1;
+      for (int i = 0; i < listaDeTransacoes.size(); i++) {
+        Transacao transacao = (Transacao) listaDeTransacoes.get(i);
+        if (transacao instanceof Emprestimo) {
+          Pessoa pessoaDaLista = transacao.getPessoa();
+          MaterialBibliografico materialBibliograficoDaLista = transacao.getMaterialBibliografico();
+          if (pessoaDaLista == pessoa && materialBibliograficoDaLista == materialBibliografico) {
+            idEmprestimo = i;
+          }
         }
       }
+      if (idEmprestimo == -1) {
+        throw new LivroNaoEncontradoException("livro não encontrado");
+      }
+        ArrayList pessoaDaListaListaDeLivros = pessoa.getListaDeLivrosEmprestado();
+        pessoaDaListaListaDeLivros.remove(materialBibliografico);
+        pessoa.setListaDeLivrosEmprestado(pessoaDaListaListaDeLivros);
+      Transacao transacao = (Transacao) listaDeTransacoes.get(idEmprestimo);
+      Devolucao devolucao = new Devolucao((Emprestimo) transacao, pessoa, materialBibliografico);
+      listaDeTransacoes.add(devolucao);
+      System.out.println(listaDeTransacoes);
+    } catch (Exception e){
+      System.out.println(e.getMessage());
     }
-    if (idEmprestimo == -1){
-      throw new LivroNaoEncontradoException("livro não encontrado");
-    }
-    Transacao transacao = (Transacao) listaDeTransacoes.get(idEmprestimo);
-    Devolucao devolucao = new Devolucao((Emprestimo) transacao,pessoa,materialBibliografico);
-    listaDeTransacoes.add(devolucao);
   }
 
   @Override

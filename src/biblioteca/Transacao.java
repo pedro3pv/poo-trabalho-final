@@ -11,15 +11,19 @@ public abstract class Transacao implements Acontecimentos{
     protected MaterialBibliografico livro;
     protected String data;
     public Transacao(Pessoa pessoa, MaterialBibliografico livro) throws TransacaoInvalidaException {
-        if (pessoa == null || livro == null) {
-            throw new TransacaoInvalidaException("Pessoa e/ou MaterialBibliografico não podem ser nulos.");
+        try {
+            if (pessoa == null || livro == null) {
+                throw new TransacaoInvalidaException("Pessoa e/ou MaterialBibliografico não podem ser nulos.");
+            }
+            LocalDateTime hour = LocalDateTime.now();
+            DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            String formattedDate = hour.format(formatHour);
+            this.pessoa = pessoa;
+            this.livro = livro;
+            this.data = formattedDate;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        LocalDateTime hour = LocalDateTime.now();
-        DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = hour.format(formatHour);
-        this.pessoa = pessoa;
-        this.livro = livro;
-        this.data = formattedDate;
     }
 
     public Transacao() {

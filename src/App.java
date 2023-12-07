@@ -7,7 +7,7 @@ public class App {
 
         Cliente cliente = new Cliente("cleber",180,"5656793256753");
 
-        //biblioteca.emprestimo(cliente, biblioteca.getMaterialBibliografico(3516));
+        biblioteca.emprestimo(cliente, biblioteca.getMaterialBibliografico(3516));
         biblioteca.adicionarLivro("test3",14,3517,"test3");
         biblioteca.adicionarLivro("test4",14,3518,"test4");
         biblioteca.adicionarLivro("test5",14,3519,"test5");

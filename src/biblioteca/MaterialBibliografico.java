@@ -10,13 +10,17 @@ public abstract class MaterialBibliografico implements Catalogavel {
     protected boolean emprestado;
 
     public MaterialBibliografico(String titulo, int numeroDePaginas, int ISBN, String autor) throws TituloInvalidoException {
-        if (titulo == null || titulo.isEmpty()) {
-            throw new TituloInvalidoException("Título inválido. O título não pode ser nulo ou vazio.");
+        try {
+            if (titulo == null || titulo.isEmpty()) {
+                throw new TituloInvalidoException("Título inválido. O título não pode ser nulo ou vazio.");
+            }
+            this.titulo = titulo;
+            this.numeroDePaginas = numeroDePaginas;
+            this.ISBN = ISBN;
+            this.autor = autor;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        this.titulo = titulo;
-        this.numeroDePaginas = numeroDePaginas;
-        this.ISBN = ISBN;
-        this.autor = autor;
     }
     protected MaterialBibliografico(){}
 
