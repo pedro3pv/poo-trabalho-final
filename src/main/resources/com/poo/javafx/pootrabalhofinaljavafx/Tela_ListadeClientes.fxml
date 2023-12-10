@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.javafx.pootrabalhofinaljavafx.ControleDaListaDeClientes">
+   <children>
+      <AnchorPane prefHeight="700.0" prefWidth="983.0" style="-fx-background-color: #985ACE;">
+         <children>
+            <AnchorPane layoutX="166.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="651.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+               <children>
+                  <Text layoutX="283.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes">
+                     <font>
+                        <Font name="Comic Sans MS" size="22.0" />
+                     </font>
+                  </Text>
+                  <ListView fx:id="listaDeClientes" layoutX="14.0" layoutY="53.0" prefHeight="553.0" prefWidth="620.0" style="-fx-background-color: #F8F1FF; -fx-background-radius: 7;" />
+                  <Button layoutX="16.0" layoutY="11.0" mnemonicParsing="false" onAction="#voltarAoInicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #ACEC52; -fx-background-radius: 7;" text="Voltar" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

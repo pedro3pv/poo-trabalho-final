@@ -1,0 +1,25 @@
+package com.poo.javafx.pootrabalhofinaljavafx.livraria;
+
+import com.poo.javafx.pootrabalhofinaljavafx.livraria.Excecoes.TituloInvalidoException;
+import com.poo.javafx.pootrabalhofinaljavafx.livraria.biblioteca.MaterialBibliografico;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Revista extends MaterialBibliografico implements Serializable {
+  public Revista(String titulo, int numeroDePaginas, int iSBN, String autor) throws TituloInvalidoException {
+    super(titulo, numeroDePaginas, iSBN, autor);
+  }
+  public Revista(){
+    super();
+  }
+  @Override
+  public String toString() {
+    return "Revista" +
+            ", " + titulo +
+            ", " + numeroDePaginas +
+            ", " + ISBN +
+            ", " + autor +
+            ", " + emprestado;
+  }
+}
