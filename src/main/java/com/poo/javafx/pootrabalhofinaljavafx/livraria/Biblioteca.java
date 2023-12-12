@@ -100,6 +100,7 @@ public class Biblioteca implements Serializable {
         }
       }
       if (!materialBibliografico.status() && !encontrado) {
+        materialBibliografico.realizarEmprestimo();
         Emprestimo emprestimo = new Emprestimo(pessoa, materialBibliografico);
         pessoa.adicionarLivroEmprestado(materialBibliografico);
         listaDeTransacoes.add(emprestimo);
@@ -131,10 +132,13 @@ public class Biblioteca implements Serializable {
       }
         ArrayList pessoaDaListaListaDeLivros = pessoa.getListaDeLivrosEmprestado();
         pessoaDaListaListaDeLivros.remove(materialBibliografico);
+        materialBibliografico.realizarDevolucao();
         pessoa.setListaDeLivrosEmprestado(pessoaDaListaListaDeLivros);
       Transacao transacao = (Transacao) listaDeTransacoes.get(idEmprestimo);
       Devolucao devolucao = new Devolucao((Emprestimo) transacao, pessoa, materialBibliografico);
       listaDeTransacoes.add(devolucao);
+      atualizarArquivoDasTransacoes();
+      atualizarArquivoDasPessoas();
       System.out.println(listaDeTransacoes);
     } catch (Exception e){
       System.out.println(e.getMessage());

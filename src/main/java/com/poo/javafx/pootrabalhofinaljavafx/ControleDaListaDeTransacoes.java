@@ -28,7 +28,7 @@ public class ControleDaListaDeTransacoes implements Initializable {
             @Override
             public void OnChangeScreen(String newScreen, Biblioteca biblioteca) {
                 ControleDaListaDeTransacoes.this.biblioteca = biblioteca;
-                if (newScreen.equals("listaDeMaterialBibliografico")) {
+                if (newScreen.equals("listaDeTransacoes")) {
                     ArrayList<String> temp = new ArrayList<>();
                     listaDeTransacoes.getItems().clear();
                     if (biblioteca.getListaDeTransacoes().size() > 0) {
