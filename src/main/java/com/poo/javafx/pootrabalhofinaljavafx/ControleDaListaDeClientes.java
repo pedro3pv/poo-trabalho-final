@@ -31,13 +31,15 @@ public class ControleDaListaDeClientes implements Initializable {
                     ArrayList<String> temp = new ArrayList<>();
                     ControleDaListaDeClientes.this.biblioteca = biblioteca;
                     listaDeClientes.getItems().clear();
-                    for (int i = 0; i < biblioteca.getListaDePessoas().size(); i++) {
-                        Cliente cliente = (Cliente) biblioteca.getListaDePessoas().get(i);
-                        System.out.println(cliente);
-                        ArrayList dados = cliente.dados();
-                        temp.add("Nome: " + dados.get(0) + " Idade: " + dados.get(1) + " CPF: " + dados.get(2));
+                    if (biblioteca.getListaDePessoas().size() >0) {
+                        for (int i = 0; i < biblioteca.getListaDePessoas().size(); i++) {
+                            Cliente cliente = (Cliente) biblioteca.getListaDePessoas().get(i);
+                            System.out.println(cliente);
+                            ArrayList dados = cliente.dados();
+                            temp.add("Nome: " + dados.get(0) + " Idade: " + dados.get(1) + " CPF: " + dados.get(2));
+                        }
+                        listaDeClientes.getItems().addAll(temp);
                     }
-                    listaDeClientes.getItems().addAll(temp);
                 }
             }
         });

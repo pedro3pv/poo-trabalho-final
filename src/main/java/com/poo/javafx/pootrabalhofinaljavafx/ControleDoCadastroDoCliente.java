@@ -25,7 +25,6 @@ public class ControleDoCadastroDoCliente implements Initializable {
     void cadastroDeCliente(ActionEvent event) {
         if (!CampoDoNome.getText().isEmpty() && !CampoDaIdade.getText().isEmpty() && !CampoDoCPF.getText().isEmpty()){
             biblioteca.adicionarCliente(CampoDoNome.getText(),Integer.parseInt(CampoDaIdade.getText()),CampoDoCPF.getText());
-            PersisteciaDaBiblioteca.salvarBiblioteca(biblioteca,"Biblioteca.dat");
             CampoDoNome.setText("");
             CampoDaIdade.setText("");
             CampoDoCPF.setText("");

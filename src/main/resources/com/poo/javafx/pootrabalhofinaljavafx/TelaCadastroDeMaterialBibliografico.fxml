@@ -8,52 +8,58 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="700.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.javafx.pootrabalhofinaljavafx.ControleDoCadastroDoCliente">
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.javafx.pootrabalhofinaljavafx.ControleDoCadastroDeMaterialBibliografico">
    <children>
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="456.0" prefWidth="833.0" style="-fx-background-color: #985ACE;" VBox.vgrow="ALWAYS">
          <children>
-            <AnchorPane layoutX="215.0" layoutY="167.0" prefHeight="366.0" prefWidth="554.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+            <AnchorPane layoutX="215.0" layoutY="167.0" prefHeight="410.0" prefWidth="554.0" style="-fx-background-color: white; -fx-background-radius: 30;">
                <children>
-                  <TextField fx:id="nomeForm" layoutX="204.0" layoutY="82.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
-                  <Text layoutX="232.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Cliente">
+                  <TextField fx:id="titulo" layoutX="203.0" layoutY="82.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
+                  <Text layoutX="261.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </Text>
-                  <Text layoutX="176.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Cliente">
+                  <Text layoutX="101.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Material Bibliográfico">
                      <font>
                         <Font name="Comic Sans MS" size="22.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="precoForm" layoutX="204.0" layoutY="183.0" style="-fx-background-color: #F8F1FF; -fx-background-radius: 7;" />
-                  <Text layoutX="191.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Material Bibliográfico" wrappingWidth="173.0">
+                  <TextField fx:id="iSBNform" layoutX="203.0" layoutY="180.0" style="-fx-background-color: #F8F1FF; -fx-background-radius: 7;" />
+                  <Text layoutX="190.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Material Bibliográfico" wrappingWidth="173.0">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </Text>
-                  <Text layoutX="237.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF do Cliente">
+                  <Text fx:id="ISBN" layoutX="259.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </Text>
-                  <Button fx:id="botaoCadastro" layoutX="301.0" layoutY="288.0" mnemonicParsing="false" onAction="#cadastroDeProduto" prefHeight="43.0" prefWidth="104.0" style="-fx-background-color: #985ACE; -fx-background-radius: 7;" text="Cadastrar" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="botaoCadastro" layoutX="301.0" layoutY="328.0" mnemonicParsing="false" onAction="#cadastroDeProduto" prefHeight="43.0" prefWidth="104.0" style="-fx-background-color: #985ACE; -fx-background-radius: 7;" text="Cadastrar" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="limparbotao" layoutX="152.0" layoutY="288.0" mnemonicParsing="false" onAction="#limparForm" prefHeight="43.0" prefWidth="104.0" style="-fx-background-color: red; -fx-background-radius: 7;" text="Limpar" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="limparbotao" layoutX="152.0" layoutY="328.0" mnemonicParsing="false" onAction="#limparForm" prefHeight="43.0" prefWidth="104.0" style="-fx-background-color: red; -fx-background-radius: 7;" text="Limpar" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <ChoiceBox fx:id="tipoMaterialBibliografico" layoutX="190.0" layoutY="234.0" prefHeight="30.0" prefWidth="173.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
+                  <ChoiceBox fx:id="tipoMaterialBibliografico" layoutX="189.0" layoutY="280.0" prefHeight="30.0" prefWidth="173.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
                   <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#voltar" style="-fx-background-color: #ACEC52;" text="Voltar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="nomeForm1" layoutX="203.0" layoutY="132.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
-                  <Text layoutX="231.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Idade do Cliente">
+                  <TextField fx:id="numPag" layoutX="202.0" layoutY="132.0" style="-fx-background-radius: 7; -fx-background-color: #F8F1FF;" />
+                  <Text layoutX="224.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de Páginas">
+                     <font>
+                        <Font name="Comic Sans MS" size="12.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="autor" layoutX="203.0" layoutY="230.0" style="-fx-background-color: #F8F1FF; -fx-background-radius: 7;" />
+                  <Text layoutX="259.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autor">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>

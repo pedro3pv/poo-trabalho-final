@@ -16,7 +16,11 @@ public class HelloApplication extends Application {
     private static Scene listaScreenDeTransacoes;
     private static Scene listaScreenDeMaterialBibliografico;
     private static Scene cadastroDeCliente;
-    private static Biblioteca biblioteca;
+    private static Scene cadastroDeMaterialBibliografico;
+    private static Scene telaTransacao;
+    private static Scene telaDevolucao;
+    private static Scene telaEmprestimo;
+    private static Biblioteca biblioteca = new Biblioteca();
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlMain = new FXMLLoader(HelloApplication.class.getResource("TelaInicial.fxml"));
@@ -24,14 +28,21 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlListaDeTransacoes = new FXMLLoader(HelloApplication.class.getResource("Tela_ListadeTransacoes.fxml"));
         FXMLLoader fxmlListaDeMaterialBibliografico = new FXMLLoader(HelloApplication.class.getResource("Tela_ListadeMaterialBibliografico.fxml"));
         FXMLLoader fxmlCadastroDeCliente = new FXMLLoader(HelloApplication.class.getResource("TelaCadastroDeCliente.fxml"));
+        FXMLLoader fxmlCadastroDeMaterialBibliografico = new FXMLLoader(HelloApplication.class.getResource("TelaCadastroDeMaterialBibliografico.fxml"));
+        FXMLLoader fxmlTelaTransacao = new FXMLLoader(HelloApplication.class.getResource("TelaTransacao.fxml"));
+        FXMLLoader fxmlTelaDevolucao = new FXMLLoader(HelloApplication.class.getResource("TelaCadastroDeDevolucao.fxml"));
+        FXMLLoader fxmlTelaEmprestimo = new FXMLLoader(HelloApplication.class.getResource("TelaCadastroDeEmprestimo.fxml"));
         mainScreen = new Scene(fxmlMain.load(), 983, 700);
         listaScreenDeClientes = new Scene(fxmlListaDeClientes.load(),983,700);
         listaScreenDeTransacoes = new Scene(fxmlListaDeTransacoes.load(),983,700);
         listaScreenDeMaterialBibliografico = new Scene(fxmlListaDeMaterialBibliografico.load(),983,700);
         cadastroDeCliente = new Scene(fxmlCadastroDeCliente.load(),983,700);
-        primaryStage.setTitle("Estrutura de Dados");
+        cadastroDeMaterialBibliografico = new Scene(fxmlCadastroDeMaterialBibliografico.load(),983,700);
+        telaTransacao = new Scene(fxmlTelaTransacao.load(),983,700);
+        telaDevolucao = new Scene(fxmlTelaDevolucao.load(),983,700);
+        telaEmprestimo = new Scene(fxmlTelaEmprestimo.load(),983,700);
+        primaryStage.setTitle("Poo");
         primaryStage.setScene(mainScreen);
-        biblioteca = PersisteciaDaBiblioteca.carregarBiblioteca("Biblioteca.dat");
         notifyAllListeners("main",biblioteca);
         stage = primaryStage;
         primaryStage.show();
@@ -58,6 +69,22 @@ case "listaDeMaterialBibliografico":
 case "cadastroDeCliente":
                 stage.setScene(cadastroDeCliente);
                 notifyAllListeners("cadastroDeCliente",biblioteca);
+                break;
+case "cadastroDeMaterialBibliografico":
+                stage.setScene(cadastroDeMaterialBibliografico);
+                notifyAllListeners("cadastroDeMaterialBibliografico",biblioteca);
+                break;
+case "telaTransacao":
+                stage.setScene(telaTransacao);
+                notifyAllListeners("telaTransacao",biblioteca);
+                break;
+case "telaDevolucao":
+                stage.setScene(telaDevolucao);
+                notifyAllListeners("telaDevolucao",biblioteca);
+                break;
+case "telaEmprestimo":
+                stage.setScene(telaEmprestimo);
+                notifyAllListeners("telaEmprestimo",biblioteca);
                 break;
         }
         stage.show();

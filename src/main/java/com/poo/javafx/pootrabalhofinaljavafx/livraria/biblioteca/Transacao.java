@@ -2,10 +2,12 @@ package com.poo.javafx.pootrabalhofinaljavafx.livraria.biblioteca;
 
 import com.poo.javafx.pootrabalhofinaljavafx.livraria.Excecoes.TransacaoInvalidaException;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-public abstract class Transacao implements Acontecimentos{
+public abstract class Transacao implements Acontecimentos, Serializable {
     protected int ID;
     protected Pessoa pessoa;
     protected MaterialBibliografico livro;
@@ -28,6 +30,16 @@ public abstract class Transacao implements Acontecimentos{
 
     public Transacao() {
 
+    }
+
+    public ArrayList dados(){
+        ArrayList<String> dados = new ArrayList<>();
+        dados.add(String.valueOf(ID));
+        dados.add(pessoa.getNome());
+        dados.add((String) livro.dados().get(0));
+        dados.add(data);
+        dados.add(this.getClass().getSimpleName());
+        return dados;
     }
 
     public MaterialBibliografico getMaterialBibliografico() {

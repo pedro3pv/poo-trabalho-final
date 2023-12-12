@@ -90,11 +90,11 @@ public class Persistencia {
     }
 
     public static ArrayList<Pessoa> carregarPessoas(String nomeArquivo) {
-        ArrayList<Pessoa> lista = null;
+        ArrayList<Pessoa> lista;
         try {
             FileInputStream fis = new FileInputStream(nomeArquivo);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            lista = (ArrayList) ois.readObject();
+            lista = (ArrayList<Pessoa>) ois.readObject();
             ois.close();
             fis.close();
         } catch (FileNotFoundException e) {

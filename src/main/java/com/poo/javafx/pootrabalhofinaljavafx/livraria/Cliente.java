@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cliente extends Pessoa implements Serializable {
+    public Cliente() {
+        super();
+    }
 
     public Cliente(String nome, int idade, String CPF) throws IdadeInvalidaException {
         super(nome, idade, CPF);

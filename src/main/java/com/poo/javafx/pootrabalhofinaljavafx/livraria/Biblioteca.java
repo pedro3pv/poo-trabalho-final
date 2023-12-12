@@ -42,7 +42,7 @@ public class Biblioteca implements Serializable {
     if (!contains){
       listaDeMaterialBibliografico.add(materialBibliografico);
       System.out.println(materialBibliografico);
-      System.out.println("livro adicionado");
+      System.out.println("materialBibliografico adicionado");
     } else {
       System.out.println("livro já está na lista");
     }
@@ -67,7 +67,7 @@ public class Biblioteca implements Serializable {
     adicionarMaterialBibliografico(revista);
   }
 
-  public MaterialBibliografico getMaterialBibliografico(int iSBN){
+  private MaterialBibliografico getMaterialBibliografico(int iSBN){
     for (int i = 0; i < listaDeMaterialBibliografico.size();i++){
       MaterialBibliografico materialBibliografico = (MaterialBibliografico) listaDeMaterialBibliografico.get(i);
       if (iSBN == materialBibliografico.getISBN()){
@@ -90,10 +90,11 @@ public class Biblioteca implements Serializable {
     }
     atualizarArquivoDoMaterialBibliografico();
   }
-  public void emprestimo(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroJaEmprestadoException, TransacaoInvalidaException {
+  public void emprestimo(Pessoa pessoa,int ISBN) throws LivroJaEmprestadoException, TransacaoInvalidaException {
     try {
+      MaterialBibliografico materialBibliografico = getMaterialBibliografico(ISBN);
       boolean encontrado = false;
-      for (int i = 0; i < listaDePessoas.size(); i++) {
+      for (int i = 0; i < pessoa.getListaDeLivrosEmprestado().size(); i++) {
         if (pessoa.getListaDeLivrosEmprestado().get(i) == materialBibliografico) {
           encontrado = true;
         }
@@ -104,7 +105,6 @@ public class Biblioteca implements Serializable {
         listaDeTransacoes.add(emprestimo);
         atualizarArquivoDasTransacoes();
         atualizarArquivoDasPessoas();
-        System.out.println(listaDeTransacoes);
       } else {
         throw new LivroJaEmprestadoException("livro já emprestado");
       }
@@ -112,15 +112,16 @@ public class Biblioteca implements Serializable {
       System.out.println(e.getMessage());
     }
   }
-  public void devolucao(Pessoa pessoa,MaterialBibliografico materialBibliografico) throws LivroNaoEncontradoException, TransacaoInvalidaException {
+  public void devolucao(Pessoa pessoa,int ISBN) throws LivroNaoEncontradoException, TransacaoInvalidaException {
     try {
+       MaterialBibliografico materialBibliografico = getMaterialBibliografico(ISBN);
       int idEmprestimo = -1;
       for (int i = 0; i < listaDeTransacoes.size(); i++) {
         Transacao transacao = (Transacao) listaDeTransacoes.get(i);
         if (transacao instanceof Emprestimo) {
           Pessoa pessoaDaLista = transacao.getPessoa();
           MaterialBibliografico materialBibliograficoDaLista = transacao.getMaterialBibliografico();
-          if (pessoaDaLista == pessoa && materialBibliograficoDaLista == materialBibliografico) {
+          if (pessoaDaLista.dados().equals(pessoa.dados()) && materialBibliograficoDaLista.dados().get(2).equals(materialBibliografico.dados().get(2))) {
             idEmprestimo = i;
           }
         }

@@ -2,13 +2,17 @@ package com.poo.javafx.pootrabalhofinaljavafx.livraria.biblioteca;
 
 import com.poo.javafx.pootrabalhofinaljavafx.livraria.Excecoes.IdadeInvalidaException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Pessoa implements Cadastravel {
+public abstract class Pessoa implements Cadastravel, Serializable {
   protected String nome;
   protected int idade;
   protected String CPF;
   protected ArrayList listaDeLivrosEmprestado = new ArrayList<MaterialBibliografico>(3);
+
+  public Pessoa() {
+  }
 
   public Pessoa(String nome, int idade, String CPF) throws IdadeInvalidaException {
     if (idade < 18) {
@@ -21,6 +25,10 @@ public abstract class Pessoa implements Cadastravel {
 
   public ArrayList getListaDeLivrosEmprestado() {
     return listaDeLivrosEmprestado;
+  }
+
+  public String getNome() {
+    return nome;
   }
 
   public void setListaDeLivrosEmprestado(ArrayList listaDeLivrosEmprestado) {

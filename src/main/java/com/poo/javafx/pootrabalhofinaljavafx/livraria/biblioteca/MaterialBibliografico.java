@@ -2,7 +2,10 @@ package com.poo.javafx.pootrabalhofinaljavafx.livraria.biblioteca;
 
 import com.poo.javafx.pootrabalhofinaljavafx.livraria.Excecoes.TituloInvalidoException;
 
-public abstract class MaterialBibliografico implements Catalogavel {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public abstract class MaterialBibliografico implements Catalogavel, Serializable {
     protected String titulo;
     protected int numeroDePaginas;
     protected int ISBN;
@@ -40,6 +43,16 @@ public abstract class MaterialBibliografico implements Catalogavel {
 
     public boolean status(){
         return emprestado;
+    }
+    public ArrayList dados(){
+        ArrayList dados = new ArrayList<>();
+        dados.add(titulo);
+        dados.add(numeroDePaginas);
+        dados.add(ISBN);
+        dados.add(autor);
+        dados.add(emprestado);
+        dados.add(this.getClass().getSimpleName());
+        return dados;
     }
     @Override
     public String toString() {

@@ -20,7 +20,7 @@ public class ControleDaTelaInicial implements Initializable {
 
     @FXML
     void cadastroDeMaterialBibliografico(ActionEvent event) {
-
+        HelloApplication.changeScreen("cadastroDeMaterialBibliografico",biblioteca);
     }
 
     @FXML
@@ -40,7 +40,7 @@ public class ControleDaTelaInicial implements Initializable {
 
     @FXML
     void transacoes(ActionEvent event) {
-
+        HelloApplication.changeScreen("telaTransacao",biblioteca);
     }
 
     @Override
