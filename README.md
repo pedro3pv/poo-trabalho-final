@@ -10,5 +10,5 @@
 - [X] Uso de encapsulamento; (0,5 ponto)
 - [X] Uso de ArrayList em pelo menos duas classes. (0,5 ponto)
 - [X] Utilização de Arquivos: leitura e escrita (faça um log de algum cadastro, e também faça algum método que seja dependente da leitura do arquivo) (1,0 ponto)
-- [ ] Modelagem do diagrama de classe do sistema no padrão UML (entrega em .pdf). (1,0 ponto)
-- [ ] BONUS: Interface gráfica da solução (1,0 ponto)
+- [X] Modelagem do diagrama de classe do sistema no padrão UML (entrega em .pdf). (1,0 ponto)
+- [X] BONUS: Interface gráfica da solução (1,0 ponto)
